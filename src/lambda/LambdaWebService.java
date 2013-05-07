@@ -1,8 +1,11 @@
 package lambda;
 
-import persistance.models.UsersEntity;
+import persistance.manager.UsersServicesManagerImpl;
+import persistance.models.SimpleUser;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,32 +19,26 @@ public class LambdaWebService {
 
     public boolean loginUser(String username, String userType, String password, List<String> services) {
 
-        DBOperations operations = new DBOperations();
+        return new UsersServicesManagerImpl().loginUser(username,userType,password,services);
+    }
 
-        UsersEntity user = operations.getUserByName(username);
+    public SimpleUser[] relevantUsers(String username){
 
-        boolean ok = true;
+        Map<String,Set<String>> resultMAp =  new UsersServicesManagerImpl().relevantUsers(username);
+        SimpleUser result[] = new SimpleUser[resultMAp.size()];
+        int i=0;
 
-        try {
-            if (null != user) {
-                operations.persistUser(username, userType, password, services);
-            } else {
-                //TODO: Modify access
-            }
+        for(Map.Entry<String,Set<String>> entry:resultMAp.entrySet()){
+            result[i] = new SimpleUser(entry.getKey(),entry.getValue());
+            i++;
 
-        } catch (RuntimeException e) {
-            ok = false;
-        } finally {
-            operations.endOperations();
         }
 
-
-        return ok;
-    }
-
-    public String sayHelloWorldFrom(String from) {
-        String result = "Hello, world, from " + from;
-        System.out.println(result);
         return result;
     }
+
+    public String[] logoutUser(String username){
+        return (String[]) new UsersServicesManagerImpl().logoutUser(username).toArray();
+    }
+
 }

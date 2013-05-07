@@ -4,8 +4,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -85,21 +84,24 @@ public class UsersEntity {
 
         UsersEntity that = (UsersEntity) o;
 
-        if (active != that.active) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
-        if (usertype != null ? !usertype.equals(that.usertype) : that.usertype != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = username != null ? username.hashCode() : 0;
-        result = 31 * result + (usertype != null ? usertype.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + active;
-        return result;
+        return username != null ? username.hashCode() : 0;
+    }
+
+    public Set<String> makeServicesIntoStringList(){
+        Set<String> servs = new HashSet<String>();
+
+        for(ServicesEntity service:services){
+            servs.add(service.getName());
+        }
+
+        return servs;
     }
 
     private Collection<ServicesEntity> services;

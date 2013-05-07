@@ -65,16 +65,13 @@ public class ServicesEntity {
         ServicesEntity that = (ServicesEntity) o;
 
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (resourceName != null ? !resourceName.equals(that.resourceName) : that.resourceName != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (resourceName != null ? resourceName.hashCode() : 0);
-        return result;
+        return name != null ? name.hashCode() : 0;
     }
 
     private Collection<UsersEntity> users;

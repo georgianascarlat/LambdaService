@@ -52,10 +52,10 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     }
 
     @Override
-    public <K> List<K> findAll(Class<K> clazz) {
+    public List<T> findAll(Class<T> clazz) {
 
 
-        List<K> result = entityManager.
+        List<T> result = entityManager.
                 createQuery("from " + clazz.getCanonicalName(), clazz).getResultList();
 
 

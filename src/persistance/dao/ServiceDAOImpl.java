@@ -39,7 +39,7 @@ public class ServiceDAOImpl extends GenericDAOImpl<ServicesEntity> implements Se
         for (UsersEntity usersEntity : users) {
 
             user = userDAO.read(UsersEntity.class,usersEntity.getUsername());
-            if (user != null) {
+            if (user != null && user.getServices().contains(entity)) {
 
                 user.getServices().remove(entity);
                 userDAO.update(user);

@@ -5,6 +5,8 @@ import persistance.dao.ServiceDAO;
 import persistance.dao.ServiceDAOImpl;
 import persistance.dao.UserDAO;
 import persistance.dao.UserDAOImpl;
+import persistance.manager.UsersServicesManager;
+import persistance.manager.UsersServicesManagerImpl;
 import persistance.models.ServicesEntity;
 import persistance.models.UsersEntity;
 import org.hibernate.ejb.HibernatePersistence;
@@ -31,133 +33,39 @@ public class DBOperations {
 
     private EntityManager entityManager;
 
-    DBOperations() {
-
-        entityManager = getEntityManager();
-    }
-
-    void endOperations() {
-        entityManager.close();
-    }
 
 
     public static void main(String args[]) {
 
-        EntityManager entityManager = HibernateUtil.getManager();
+        UsersServicesManager manager = new UsersServicesManagerImpl();
 
-        UserDAO userDAO = new UserDAOImpl(entityManager);
-        ServiceDAO serviceDAO = new ServiceDAOImpl(entityManager);
+        List<String> services = new LinkedList<String>();
+        services.add("serv2");
+        services.add("serv0");
 
-        userDAO.setServiceDAO(serviceDAO);
-        serviceDAO.setUserDAO(userDAO);
+        manager.loginUser("didi","buyer","didi",services);
 
+        services.clear();
+        services.add("serv1");
+        services.add("serv2");
 
-        /////////////////
+        manager.loginUser("lili","seller","lili",services);
 
+        services.clear();
+        services.add("serv0");
+        services.add("serv3");
 
-        UsersEntity user1 = new UsersEntity("didi", "", "", 1);
-        UsersEntity user2 = new UsersEntity("lili","","",1);
+        manager.loginUser("kiki","seller","kiki",services);
 
-        ServicesEntity service0 = new ServicesEntity("serv0");
-        ServicesEntity service1 = new ServicesEntity("serv1");
-        ServicesEntity service2 = new ServicesEntity("serv2");
+        System.out.println(manager.relevantUsers("lili"));
+        System.out.println(manager.relevantUsers("didi"));
 
-
-        service0.getUsers().add(user2);
-        user2.getServices().add(service0);
-
-        user1.getServices().add(service1);
-        user1.getServices().add(service2);
-        service1.getUsers().add(user1);
-        service2.getUsers().add(user1);
-
-        /////////////////
+        System.out.println("After logout: " + manager.logoutUser("lili"));
+        System.out.println(manager.relevantUsers("didi"));
 
 
-        EntityTransaction transaction = HibernateUtil.getTransaction(entityManager);
-
-        transaction.begin();
-
-
-         //userDAO.create(user1);
-
-        //userDAO.delete(user1);
-
-        // serviceDAO.delete(service1);
-
-        //serviceDAO.create(service0);
-
-
-
-
-        transaction.commit();
-
-        HibernateUtil.closeManager(entityManager);
 
     }
 
-    void persistUser(String username, String userType, String password, List<String> services) {
 
-        UsersEntity usersEntity = new UsersEntity(username, userType, password, 1);
-        List<ServicesEntity> servicesEntities = new LinkedList<ServicesEntity>();
-
-        for (String name : services) {
-            ServicesEntity service = new ServicesEntity(name);
-            servicesEntities.add(service);
-        }
-
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-
-        try {
-
-            entityTransaction.begin();
-
-            //TODO: Persist everything
-
-            entityTransaction.commit();
-
-
-        } catch (RuntimeException e) {
-
-            entityTransaction.rollback();
-
-            throw e;
-        }
-
-    }
-
-    UsersEntity getUserByName(String username) {
-
-        UsersEntity user = null;
-
-        List<UsersEntity> usersEntities = entityManager.createQuery(SELECT_QUERY_USER, UsersEntity.class)
-                .setParameter("username", username).getResultList();
-
-        if (usersEntities.size() > 0)
-            user = usersEntities.get(0);
-
-        return user;
-    }
-
-    ServicesEntity getServiceByName(String servicename) {
-
-        ServicesEntity service = null;
-
-        List<ServicesEntity> serviceEntities = entityManager.createQuery(SELECT_QUERY_SERVICE, ServicesEntity.class)
-                .setParameter("name", servicename).getResultList();
-
-        if (serviceEntities.size() > 0)
-            service = serviceEntities.get(0);
-
-        return service;
-    }
-
-    private static EntityManager getEntityManager() {
-
-        PersistenceProvider persistenceProvider = new HibernatePersistence();
-        EntityManagerFactory entityManagerFactory = persistenceProvider.
-                createEntityManagerFactory("PersistenceUnit", new HashMap());
-        return entityManagerFactory.createEntityManager();
-
-    }
 }

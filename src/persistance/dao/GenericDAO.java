@@ -24,7 +24,7 @@ public interface GenericDAO<T> {
 
     public void delete(T entity);
 
-    public <K> List<K> findAll(Class<K> clazz);
+    public List<T> findAll(Class<T> clazz);
 
     public <K> List<K> findByColumnValue(Class<K> clazz, String columnName, Object value);
 }
