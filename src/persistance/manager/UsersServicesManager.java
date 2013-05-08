@@ -37,7 +37,7 @@ public  abstract class UsersServicesManager {
 
     public abstract boolean loginUser(String name,String type,  String pass, List<String> services);
 
-    public abstract Map<String,Set<String>> relevantUsers(String name);
+    public abstract Set<String> relevantUsers(String type, String serviceName);
 
     public abstract Set<String> logoutUser(String name);
 }

@@ -70,6 +70,47 @@ public class UsersServicesManagerImpl extends UsersServicesManager {
     }
 
     @Override
+    public Set<String> relevantUsers(String type, String serviceName) {
+
+        Set<String> relUsers = new HashSet<String>();
+
+        // init entity manager and userDAO, serviceDAO
+        EntityManager manager = initContext();
+        // obtain an entity transaction object
+        EntityTransaction transaction = HibernateUtil.getTransaction(manager);
+
+        try{
+
+            transaction.begin();
+
+
+
+            ServicesEntity service = serviceDAO.read(ServicesEntity.class,serviceName);
+            if(null == service)
+                throw new RuntimeException();
+            Collection<UsersEntity> users = service.getUsers();
+
+            for(UsersEntity user:users){
+                if(!type.equals(user.getUsertype()) && user.getActive() == 1){
+                    relUsers.add(new String(user.getUsername()));
+                }
+            }
+
+            transaction.commit();
+
+        } catch (RuntimeException e){
+            transaction.rollback();
+            relUsers = null;
+            System.err.println("Cannot obtain relevant users for service "+serviceName);
+        }  finally {
+            HibernateUtil.closeManager(manager);
+        }
+
+        return relUsers;
+
+    }
+
+
     public Map<String, Set<String>> relevantUsers(String name) {
 
         Map<String, Set<String>> relUsers = new HashMap<String, Set<String>>();

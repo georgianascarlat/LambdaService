@@ -1,11 +1,8 @@
 package lambda;
 
 import persistance.manager.UsersServicesManagerImpl;
-import persistance.models.SimpleUser;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,28 +14,19 @@ import java.util.Set;
 public class LambdaWebService {
 
 
-    public boolean loginUser(String username, String userType, String password, List<String> services) {
+    public boolean loginUser(String username, String userType, String password, String services[]) {
 
-        return new UsersServicesManagerImpl().loginUser(username,userType,password,services);
+        return new UsersServicesManagerImpl().loginUser(username,userType,password, Arrays.asList(services));
     }
 
-    public SimpleUser[] relevantUsers(String username){
+    public String[] relevantUsers(String type,String serviceName){
 
-        Map<String,Set<String>> resultMAp =  new UsersServicesManagerImpl().relevantUsers(username);
-        SimpleUser result[] = new SimpleUser[resultMAp.size()];
-        int i=0;
-
-        for(Map.Entry<String,Set<String>> entry:resultMAp.entrySet()){
-            result[i] = new SimpleUser(entry.getKey(),entry.getValue());
-            i++;
-
-        }
-
-        return result;
+        return new UsersServicesManagerImpl().relevantUsers(type,serviceName).toArray(new String[0]);
     }
 
-    public String[] logoutUser(String username){
-        return (String[]) new UsersServicesManagerImpl().logoutUser(username).toArray();
+    public String[] logoutUser(String user){
+
+        return new UsersServicesManagerImpl().logoutUser(user).toArray(new String[0]);
     }
 
 }
