@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS services (
          name VARCHAR(100) NOT NULL PRIMARY KEY,
 		 resource_name VARCHAR(100)
        );
-CREATE TABLE UserToService
+CREATE TABLE usertoservice
 (
   user_name VARCHAR(100) NOT NULL,
   service_name VARCHAR(100) NOT NULL,

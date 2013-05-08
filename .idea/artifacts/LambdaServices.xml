@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="LambdaServices">
+    <output-path>$PROJECT_DIR$/out/artifacts/LambdaServices</output-path>
+    <root id="archive" name="LambdaServices.war">
+      <element id="javaee-facet-resources" facet="LambdaService/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="LambdaService" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="lib" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/slf4j-log4j12-1.4.2.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

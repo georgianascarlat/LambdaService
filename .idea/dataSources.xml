@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1268731749">
+    <data-source source="LOCAL" name="Data Source" product="MySQL" version="5.5.31-0ubuntu0.12.04.1" jdbc-version="4.0" driver-name="MySQL-AB JDBC Driver" driver-version="mysql-connector-java-5.1.22 ( Revision: ${bzr.revision-id} )" uuid="7c426db7-60a6-4e10-80e5-cafdf6882bf3">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost/lambdadb</jdbc-url>
+      <user-name>lambdateam</user-name>
+      <user-password>dfc3dfcedfda</user-password>
+      <schema-pattern>lambdadb.*</schema-pattern>
+      <default-schemas>lambdadb.*</default-schemas>
+      <libraries>
+        <library>
+          <url>file://$PROJECT_DIR$/lib/mysql-connector-java-5.1.22-bin.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>
+

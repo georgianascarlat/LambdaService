@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="jpa" name="JPA">
-      <configuration>
-        <setting name="validation-enabled" value="true" />
-        <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping>
-          <factory-entry name="NewPersistenceUnit" value="f01b2ba3-ee27-4830-9a01-d10450b51a09" />
-          <factory-entry name="PersistenceUnit" value="f01b2ba3-ee27-4830-9a01-d10450b51a09" />
-        </datasource-mapping>
-        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/META-INF/persistence.xml" />
-      </configuration>
-    </facet>
     <facet type="web" name="Web">
       <configuration>
         <descriptors>
@@ -25,6 +14,16 @@
         <configuration ws.engine="Apache Axis" />
       </facet>
     </facet>
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping>
+          <factory-entry name="PersistenceUnit" value="7c426db7-60a6-4e10-80e5-cafdf6882bf3" />
+        </datasource-mapping>
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/META-INF/persistence.xml" />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -33,10 +32,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="JPA 2.0-2.0" level="project" />
-    <orderEntry type="library" name="JAX-WS-Apache Axis" level="project" />
-    <orderEntry type="library" name="org.hibernate:hibernate-entitymanager:4.2.0.Final" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-5.1.22-bin" level="project" />
+    <orderEntry type="library" exported="" name="lib" level="project" />
   </component>
 </module>
 
